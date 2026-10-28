@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f6">
+  <meta name="description" content="2026학년도 2학기 7개 과목의 프로젝트·마감·학습 진행을 관리하는 개인 플래너">
+  <title>학기 실행 관리 · 2026-2</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="side" aria-label="주 탐색">
+      <div class="brand"><span class="brand-symbol" aria-hidden="true">▦</span><div><b>학기 실행 관리</b><small>2026 · 2학기</small></div></div>
+      <div class="side-label">작업 공간</div>
+      <nav class="navigation" id="navigation" aria-label="화면 이동">
+        <button class="nav active" data-view="focus"><span class="nav-icon">◉</span> 실행 현황</button>
+        <button class="nav" data-view="week"><span class="nav-icon">▥</span> 주간 계획</button>
+        <button class="nav" data-view="projects"><span class="nav-icon">☷</span> 과목별 진행</button>
+        <button class="nav" data-view="calendar"><span class="nav-icon">▦</span> 월간 일정</button>
+      </nav>
+      <div class="side-label side-label-course">과목</div>
+      <div class="course-links" id="courseLinks"></div>
+      <div class="side-bottom"><div id="accountText">로컬 저장 모드</div><button id="accountButton" class="button button-outline compact">동기화 설정</button></div>
+    </aside>
+    <div class="main-wrap">
+      <header class="topbar">
+        <div class="mobile-brand">학기 실행 관리 <span>2026-2</span></div>
+        <div class="breadcrumb" id="breadcrumbs">실행 현황 <span> / 전체 과목</span></div>
+        <div class="top-actions"><span class="sync-state local" id="syncState" role="status">● 로컬 저장</span><button id="todayButton" class="button button-light">오늘</button><button id="addButton" class="button button-primary">＋ 새 작업</button></div>
+      </header>
+      <main id="content" class="content" tabindex="-1"></main>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="recordDialog" class="dialog">
+    <form id="recordForm" class="dialog-inner" method="dialog">
+      <div class="dialog-heading"><div><div class="eyebrow">작업 관리</div><h2 id="dialogTitle">새 항목</h2></div><button type="button" class="close" data-close="recordDialog" aria-label="닫기">×</button></div>
+      <input type="hidden" name="id" id="recordId">
+      <div class="form-grid">
+        <label class="full">항목 유형<select name="kind" id="formKind"><option value="task">할 일</option><option value="event">일정·마감</option></select></label>
+        <label class="full">제목 <input id="formTitle" name="title" maxlength="180" required placeholder="수행할 작업을 적어 주세요"></label>
+        <label>과목<select name="course" id="formCourse"></select></label>
+        <label>날짜 <span class="small-tip">미정이면 비워두기</span><input id="formDate" name="due_date" type="date"></label>
+        <label>상태<select name="status" id="formStatus"><option value="todo">예정</option><option value="doing">진행 중</option><option value="done">완료</option></select></label>
+        <label>중요도<select name="priority" id="formPriority"><option value="1">높음</option><option value="2">보통</option><option value="3">낮음</option></select></label>
+        <label class="full" id="phaseLabel">진행 단계<input id="formPhase" name="phase" maxlength="100" placeholder="예: 연구설계 구체화"></label>
+        <label class="full" id="eventLabel">일정 구분<select id="formEventType" name="event_type"><option value="확정">공식 일정</option><option value="내부">내부 목표</option><option value="정기">정기 미팅</option></select></label>
+        <label class="full">기록 / 다음 행동<textarea name="note" id="formNote" rows="3" maxlength="3000" placeholder="회의 결과, 진행 내용, 참고 사항"></textarea></label>
+      </div>
+      <div class="dialog-footer"><button type="button" class="button button-danger" id="deleteButton" hidden>삭제</button><div class="spacer"></div><button type="button" class="button button-light" data-close="recordDialog">취소</button><button class="button button-primary" id="submitRecord" type="submit">저장</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="accountDialog" class="dialog">
+    <div class="dialog-inner"><div class="dialog-heading"><div><div class="eyebrow">데이터 보관</div><h2>동기화 및 백업</h2></div><button class="close" data-close="accountDialog" aria-label="닫기">×</button></div>
+      <div id="accountPanel"></div>
+      <div class="backup-actions"><button type="button" class="button button-outline" id="exportButton">JSON 백업</button><label class="button button-outline import-label">JSON 가져오기<input id="importFile" type="file" accept="application/json,.json" hidden></label></div>
+      <p class="help">기본적으로 현재 브라우저에 자동 저장됩니다. GitHub Pages에서 여러 기기 간 자동 동기화를 사용하려면 README의 Supabase 설정 후 이메일 로그인해야 합니다.</p>
+    </div>
+  </dialog>
+
+  <script src="./config.js"></script>
+  <script src="./seed.js"></script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

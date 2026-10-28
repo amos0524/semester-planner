@@ -5,7 +5,7 @@
  * 자격증명 미설정 시 브라우저 로컬 저장 모드로 정상 작동합니다.
  */
 window.PLANNER_CONFIG = {
-  supabaseUrl: '',
-  supabasePublishableKey: '',
+  supabaseUrl: 'https://rgbxthkrvbhaftmwiafg.supabase.co/rest/v1/',
+  supabasePublishableKey: 'sb_publishable_Q4A6z9ZaY6xzvGjARqc4bg_WwdTWMJU',
   timezone: 'Asia/Seoul'
 };
